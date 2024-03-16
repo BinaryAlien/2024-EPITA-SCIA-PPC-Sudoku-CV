@@ -28,11 +28,12 @@ namespace Sudoku.CNN
                 scope.Set("sudoku", pySudoku);
 
                 // the person object may now be used in Python
-                string code = Resources.SelfCallSolver_py;
+                /*string code = Resources.SelfCallSolver_py;
                 scope.Exec(code);
                 var result = scope.Get("solvedSudoku");
                 var toReturn = result.As<SudokuGrid>();
-                return toReturn;
+                return toReturn;*/
+                return null; // Todo : fix this
             }
             //}
         }
