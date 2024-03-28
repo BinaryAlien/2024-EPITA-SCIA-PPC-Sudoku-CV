@@ -1,24 +1,42 @@
 import numpy as np
 from timeit import default_timer
 
-def is_valid(grid, row, col, num):
-    # Vérifier si num est présent dans la ligne spécifiée
-    if num in grid[row]:
-        return False
-    
-    # Vérifier si num est présent dans la colonne spécifiée
-    if num in grid[:, col]:
-        return False
-    
-    # Vérifier si num est présent dans le bloc 3x3
-    start_row, start_col = 3 * (row // 3), 3 * (col // 3)
-    for r in range(start_row, start_row + 3):
-        for c in range(start_col, start_col + 3):
-            if grid[r, c] == num:
-                return False
-    return True
+import pandas as pd
+from sklearn.model_selection import train_test_split
 
-def solve_sudoku(grid, row=0, col=0):
+
+def get_model():
+
+    model = keras.models.Sequential()
+
+    model.add(Conv2D(64, kernel_size=(3,3), activation='relu', padding='same', input_shape=(9,9,1)))
+    model.add(BatchNormalization())
+    model.add(Conv2D(64, kernel_size=(3,3), activation='relu', padding='same'))
+    model.add(BatchNormalization())
+    model.add(Conv2D(128, kernel_size=(1,1), activation='relu', padding='same'))
+
+    model.add(Flatten())
+    model.add(Dense(81*9))
+    model.add(Reshape((-1, 9)))
+    model.add(Activation('softmax'))
+    
+    return model
+
+def train_model(model):
+    data = pd.read_csv("../data.csv")
+
+    X_train, X_test, y_train, y_test = train_test_split(features, labels, test_size=0.2, random_state=42)
+    model = get_model()
+
+    # Compile the model
+    model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+
+    # Train the model
+    model.fit(X_train, y_train, epochs=10, batch_size=32)
+    return model
+
+
+'''def solve_sudoku(grid, row=0, col=0):
     # Trouver la prochaine cellule vide
     for i in range(row, 9):
         for j in range(col if i == row else 0, 9):
@@ -30,7 +48,17 @@ def solve_sudoku(grid, row=0, col=0):
                             return True
                         grid[i, j] = 0
                 return False
-    return True
+    return True'''
+
+    
+def solve_sudoku(grid, row=0, col=0):
+    model = get_model()
+    trained_model = train_model(model)
+
+    return trained_model.predict(grid)
+
+
+
 
 # Définir `instance` uniquement si non déjà défini par PythonNET
 if 'instance' not in locals():
