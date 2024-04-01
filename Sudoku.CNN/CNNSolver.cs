@@ -5,6 +5,7 @@ using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
 using Python.Runtime;
+using Sudoku.CNN.Properties;
 using Sudoku.Shared;
 
 namespace Sudoku.CNN
@@ -28,12 +29,12 @@ namespace Sudoku.CNN
                 scope.Set("sudoku", pySudoku);
 
                 // the person object may now be used in Python
-                /*string code = Resources.SelfCallSolver_py;
+                string code = Resources.CNN.ToString();
                 scope.Exec(code);
                 var result = scope.Get("solvedSudoku");
                 var toReturn = result.As<SudokuGrid>();
-                return toReturn;*/
-                return null; // Todo : fix this
+                return toReturn;
+                //return null; // Todo : fix this
             }
             //}
         }
