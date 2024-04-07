@@ -1,24 +1,39 @@
 import copy
 import keras
 import numpy as np
-from model import get_model
-from scripts.data_processes import get_data
+#from model import get_model
+#from scripts.data_processes import get_data
+
+import clr 
+clr.AddReference('Sudoku.CNN')
+
+from Sudoku.CNN import CNNSolver
+
+from io import StringIO
+
+csv_content = CNNSolver.GetSudokuCsvContent()
+
+x_train, x_test, y_train, y_test = get_data(StringIO(csv_content))
 
 
+#import os
 
-x_train, x_test, y_train, y_test = get_data('data/sudoku.csv')
+#print(os.getcwd())
 
-print(x_train)
+#x_train, x_test, y_train, y_test = get_data(Resouces.datas)
+
+#print(x_train)
 
 
 model = get_model()
 
-adam = keras.optimizers.Adam(lr=.001)
+adam = keras.optimizers.Adam(learning_rate=0.001)
 model.compile(loss='sparse_categorical_crossentropy', optimizer=adam)
 
 model.fit(x_train, y_train, batch_size=32, epochs=2)
 
-model = keras.models.load_model('model/sudoku.model')
+#model.save('model/sudoku.model')
+#model = keras.models.load_model('model/sudoku.model')
 
 
 def norm(a):

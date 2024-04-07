@@ -18,7 +18,7 @@ namespace Sudoku.CNN {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -67,6 +67,7 @@ namespace Sudoku.CNN {
         ///def get_data(file):
         ///
         ///    data = pd.read_csv(file)
+        ///    #print(data.head)
         ///
         ///    feat_raw = data[&apos;quizzes&apos;]
         ///    label_raw = data[&apos;solutions&apos;]
@@ -85,7 +86,7 @@ namespace Sudoku.CNN {
         ///
         ///    for i in label_raw:
         ///
-        ///        x = np.array([int(j) for j in i]).reshape((81,1 [rest of string was truncated]&quot;;.
+        ///        x = np.array([int(j) for [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string data_processes {
             get {
@@ -115,35 +116,49 @@ namespace Sudoku.CNN {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to quizzes,solutions
+        ///004300209005009001070060043006002087190007400050083000600000105003508690042910300,864371259325849761971265843436192587198657432257483916689734125713528694542916378
+        ///040100050107003960520008000000000017000906800803050620090060543600080700250097100,346179258187523964529648371965832417472916835813754629798261543631485792254397186
+        ///600120384008459072000006005000264030070080006940003000310000050089700000502000190,695127384138459672724836915851264739273981546946573821317692458489715263562348197
+        ///49 [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string sudoku {
+            get {
+                return ResourceManager.GetString("sudoku", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to import copy
         ///import keras
         ///import numpy as np
-        ///from model import get_model
-        ///from scripts.data_processes import get_data
+        ///#from model import get_model
+        ///#from scripts.data_processes import get_data
+        ///
+        ///import clr 
+        ///clr.AddReference(&apos;Sudoku.CNN&apos;)
+        ///
+        ///from Sudoku.CNN import CNNSolver
+        ///
+        ///from io import StringIO
+        ///
+        ///csv_content = CNNSolver.GetSudokuCsvContent()
+        ///
+        ///x_train, x_test, y_train, y_test = get_data(StringIO(csv_content))
         ///
         ///
+        ///#import os
         ///
-        ///x_train, x_test, y_train, y_test = get_data(&apos;data/sudoku.csv&apos;)
+        ///#print(os.getcwd())
         ///
-        ///print(x_train)
+        ///#x_train, x_test, y_train, y_test = get_data(Resouces.datas)
+        ///
+        ///#print(x_train)
         ///
         ///
         ///model = get_model()
         ///
-        ///adam = keras.optimizers.Adam(lr=.001)
-        ///model.compile(loss=&apos;sparse_categorical_crossentropy&apos;, optimizer=adam)
-        ///
-        ///model.fit(x_train, y_train, batch_size=32, epochs=2)
-        ///
-        ///model = keras.models.load_model(&apos;model/sudoku.model&apos;)
-        ///
-        ///
-        ///def norm(a):
-        ///    return (a/9)-.5
-        ///
-        ///
-        ///
-        ///def deno [rest of string was truncated]&quot;;.
+        ///adam = kera [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Sudoku_py {
             get {

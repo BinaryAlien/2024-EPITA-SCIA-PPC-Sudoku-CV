@@ -5,6 +5,7 @@ from sklearn.model_selection import train_test_split
 def get_data(file):
 
     data = pd.read_csv(file)
+    #print(data.head)
 
     feat_raw = data['quizzes']
     label_raw = data['solutions']
