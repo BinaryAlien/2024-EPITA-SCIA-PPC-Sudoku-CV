@@ -1,25 +1,29 @@
+using Sudoku.Shared;
+
 namespace Sudoku.GraphColoring.Solvers;
 
 using Vertex = int;
 using Color = int;
 
 // https://fr.wikipedia.org/wiki/DSATUR
-public class DsaturSolver : ISudokuGraphSolver
+public class GraphDsaturSolver : ISudokuSolver
 {
-    public void Solve(SudokuGraph graph)
+    public SudokuGrid Solve(SudokuGrid grid)
     {
-        DsaturSolver.SolveRecursive(graph);
+        var graph = new SudokuGraph(grid);
+        GraphDsaturSolver.SolveRecursive(graph);
+        return graph.ToGrid();
     }
 
     private static bool SolveRecursive(SudokuGraph graph)
     {
-        Vertex? source = DsaturSolver.BlankMaxSaturation(graph);
+        Vertex? source = GraphDsaturSolver.BlankMaxSaturation(graph);
         if (!source.HasValue)
             return true;
 
         foreach (Color color in graph.AvailableColors(source.Value)) {
             graph[source.Value] = color;
-            if (DsaturSolver.SolveRecursive(graph))
+            if (GraphDsaturSolver.SolveRecursive(graph))
                 return true;
         }
 
@@ -37,7 +41,7 @@ public class DsaturSolver : ISudokuGraphSolver
             Color color = graph[vertex];
             if (color != SudokuGraph.Blank)
                 continue;
-            int saturation = DsaturSolver.Saturation(graph, vertex);
+            int saturation = GraphDsaturSolver.Saturation(graph, vertex);
             int degree = graph.Degree(vertex);
             bool unset = !max.HasValue;
             bool greaterSaturation = (saturation > maxSaturation);

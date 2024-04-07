@@ -1,16 +1,20 @@
+using Sudoku.Shared;
+
 namespace Sudoku.GraphColoring.Solvers;
 
 using Vertex = int;
 using Color = int;
 
-public class GreedySolver : ISudokuGraphSolver
+public class GraphGreedySolver : ISudokuSolver
 {
-    public void Solve(SudokuGraph graph)
+    public SudokuGrid Solve(SudokuGrid grid)
     {
+        var graph = new SudokuGraph(grid);
         Vertex? source = graph.First(SudokuGraph.Blank);
         if (!source.HasValue)
-            return;
-        GreedySolver.SolveRecursive(graph, source.Value);
+            return grid;
+        GraphGreedySolver.SolveRecursive(graph, source.Value);
+        return graph.ToGrid();
     }
 
     private static bool SolveRecursive(SudokuGraph graph, Vertex source)
@@ -19,7 +23,7 @@ public class GreedySolver : ISudokuGraphSolver
         {
             graph[source] = color;
             Vertex? next = graph.First(SudokuGraph.Blank);
-            if (!next.HasValue || GreedySolver.SolveRecursive(graph, next.Value))
+            if (!next.HasValue || GraphGreedySolver.SolveRecursive(graph, next.Value))
                 return true;
         }
         graph[source] = SudokuGraph.Blank;
