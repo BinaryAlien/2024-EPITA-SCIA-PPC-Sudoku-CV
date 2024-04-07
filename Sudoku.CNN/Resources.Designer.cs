@@ -95,6 +95,33 @@ namespace Sudoku.CNN {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to # may require update keras
+        ///#!pip install keras --upgrade
+        ///import os
+        ///
+        ///import numpy as np
+        ///from keras import models, utils
+        ///import pandas as pd
+        ///from huggingface_hub import hf_hub_download
+        ///from tensorflow import keras
+        ///import tensorflow as tf
+        ///from tensorflow.python.keras import layers
+        ///from tensorflow.python.keras.models import Sequential
+        ///
+        ///class SudokuSolver:
+        ///    def __init__(self, model_path):
+        ///        self.model = self.load_model(model_path)
+        ///
+        ///    def load_model(self, model_path):
+        ///        return m [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string FNN {
+            get {
+                return ResourceManager.GetString("FNN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to import keras
         ///from keras.layers import Activation
         ///from keras.layers import Conv2D, BatchNormalization, Dense, Flatten, Reshape

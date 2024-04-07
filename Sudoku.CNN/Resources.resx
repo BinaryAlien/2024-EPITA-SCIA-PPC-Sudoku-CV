@@ -121,6 +121,9 @@
   <data name="data_processes" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\scripts\data_processes.py;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="FNN" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\FNN.py;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="model" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\model.py;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
