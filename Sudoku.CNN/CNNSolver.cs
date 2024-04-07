@@ -5,7 +5,6 @@ using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
 using Python.Runtime;
-using Sudoku.CNN.Properties;
 using Sudoku.Shared;
 using Python.Runtime;
 
