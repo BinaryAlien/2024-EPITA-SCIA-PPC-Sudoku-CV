@@ -1,6 +1,6 @@
-import keras
-from keras.layers import Activation
-from keras.layers import Conv2D, BatchNormalization, Dense, Flatten, Reshape
+from keras import Input, Model, Sequential
+from keras.layers import Add, Conv2D, MaxPooling2D, Concatenate, Activation, Dropout, Flatten, Dense, Reshape, BatchNormalization
+
 
 def get_model():
 

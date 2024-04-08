@@ -66,7 +66,7 @@ namespace Sudoku.CNN {
         ///
         ///def get_data(file):
         ///
-        ///    data = pd.read_csv(file)
+        ///    data = pd.read_csv(file).sample(n=10000)
         ///    #print(data.head)
         ///
         ///    feat_raw = data[&apos;quizzes&apos;]
@@ -86,7 +86,7 @@ namespace Sudoku.CNN {
         ///
         ///    for i in label_raw:
         ///
-        ///        x = np.array([int(j) for [rest of string was truncated]&quot;;.
+        ///        x = np.a [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string data_processes {
             get {
@@ -122,9 +122,9 @@ namespace Sudoku.CNN {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to import keras
-        ///from keras.layers import Activation
-        ///from keras.layers import Conv2D, BatchNormalization, Dense, Flatten, Reshape
+        ///   Looks up a localized string similar to from keras import Input, Model, Sequential
+        ///from keras.layers import Add, Conv2D, MaxPooling2D, Concatenate, Activation, Dropout, Flatten, Dense, Reshape, BatchNormalization
+        ///
         ///
         ///def get_model():
         ///
@@ -134,7 +134,7 @@ namespace Sudoku.CNN {
         ///    model.add(BatchNormalization())
         ///    model.add(Conv2D(64, kernel_size=(3,3), activation=&apos;relu&apos;, padding=&apos;same&apos;))
         ///    model.add(BatchNormalization())
-        ///    model.add(Conv2D(128, kernel_size=(1,1), activation=&apos;relu&apos;, [rest of string was truncated]&quot;;.
+        ///    model.add(C [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string model {
             get {
@@ -159,33 +159,34 @@ namespace Sudoku.CNN {
         ///   Looks up a localized string similar to import copy
         ///import keras
         ///import numpy as np
-        ///#from model import get_model
-        ///#from scripts.data_processes import get_data
-        ///
         ///import clr 
         ///clr.AddReference(&apos;Sudoku.CNN&apos;)
-        ///
         ///from Sudoku.CNN import CNNSolver
         ///
-        ///from io import StringIO
         ///
-        ///csv_content = CNNSolver.GetSudokuCsvContent()
-        ///
-        ///x_train, x_test, y_train, y_test = get_data(StringIO(csv_content))
+        ///def norm(a):
+        ///    return (a/9)-.5
         ///
         ///
-        ///#import os
         ///
-        ///#print(os.getcwd())
-        ///
-        ///#x_train, x_test, y_train, y_test = get_data(Resouces.datas)
-        ///
-        ///#print(x_train)
+        ///def denorm(a):
+        ///    return (a+.5)*9
         ///
         ///
-        ///model = get_model()
+        ///def inference_sudoku(sample):
         ///
-        ///adam = kera [rest of string was truncated]&quot;;.
+        ///    &apos;&apos;&apos;
+        ///        This function solve the sudoku by filling blank positions one by one.
+        ///    &apos;&apos;&apos;
+        ///
+        ///    feat = copy.copy(sample)
+        ///
+        ///    while(1):
+        ///
+        ///        out = model.predict(feat.reshape((1,9,9,1)))
+        ///        out = out.squeeze()
+        ///
+        ///        pred = np.argmax(out, axis [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Sudoku_py {
             get {
