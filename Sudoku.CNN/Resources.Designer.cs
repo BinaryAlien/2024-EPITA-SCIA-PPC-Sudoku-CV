@@ -66,7 +66,7 @@ namespace Sudoku.CNN {
         ///
         ///def get_data(file):
         ///
-        ///    data = pd.read_csv(file).sample(n=10000)
+        ///    data = pd.read_csv(file).sample(n=100000)
         ///    #print(data.head)
         ///
         ///    feat_raw = data[&apos;quizzes&apos;]
@@ -86,7 +86,7 @@ namespace Sudoku.CNN {
         ///
         ///    for i in label_raw:
         ///
-        ///        x = np.a [rest of string was truncated]&quot;;.
+        ///        x = np. [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string data_processes {
             get {
@@ -162,7 +162,7 @@ namespace Sudoku.CNN {
         ///import clr 
         ///clr.AddReference(&apos;Sudoku.CNN&apos;)
         ///from Sudoku.CNN import CNNSolver
-        ///
+        ///from io import StringIO
         ///
         ///def norm(a):
         ///    return (a/9)-.5
@@ -186,7 +186,7 @@ namespace Sudoku.CNN {
         ///        out = model.predict(feat.reshape((1,9,9,1)))
         ///        out = out.squeeze()
         ///
-        ///        pred = np.argmax(out, axis [rest of string was truncated]&quot;;.
+        ///        pre [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Sudoku_py {
             get {

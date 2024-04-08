@@ -4,7 +4,7 @@ import numpy as np
 import clr 
 clr.AddReference('Sudoku.CNN')
 from Sudoku.CNN import CNNSolver
-
+from io import StringIO
 
 def norm(a):
     return (a/9)-.5
@@ -89,7 +89,7 @@ csv_content = CNNSolver.GetSudokuCsvContent()
 model = get_model()
 
 
-if True:
+if False:
     try:
         model = keras.models.load_model('..\\..\\..\\..\\Sudoku.CNN\\Resources\\model\\model.keras')
     except Exception as e:
