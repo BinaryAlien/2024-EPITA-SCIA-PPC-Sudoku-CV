@@ -37,7 +37,7 @@ public class SudokuGraph
         set => this._colors[vertex] = value;
     }
 
-    public Vertex? First(Vertex target)
+    public Vertex? First(Color target)
     {
         for (Vertex vertex = 0; vertex < this._graph.VertexCount; ++vertex)
             if (this[vertex] == target)
