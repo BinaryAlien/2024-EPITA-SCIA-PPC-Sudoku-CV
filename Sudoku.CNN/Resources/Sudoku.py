@@ -88,8 +88,10 @@ csv_content = CNNSolver.GetSudokuCsvContent()
 
 model = get_model()
 
+loadingmodel = True
+savingmodel = True
 
-if False:
+if loadingmodel:
     try:
         model = keras.models.load_model('..\\..\\..\\..\\Sudoku.CNN\\Resources\\model\\model.keras')
     except Exception as e:
@@ -99,7 +101,7 @@ else:
     adam = keras.optimizers.Adam(learning_rate=0.001)
     model.compile(loss='sparse_categorical_crossentropy', optimizer=adam)
     model.fit(x_train, y_train, batch_size=32, epochs=2)
-    if True:
+    if savingmodel:
         model.save('..\\..\\..\\..\\Sudoku.CNN\\Resources\\model\\model.keras')
 
 
