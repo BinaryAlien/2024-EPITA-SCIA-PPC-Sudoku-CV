@@ -5,6 +5,7 @@ import clr
 clr.AddReference('Sudoku.CNN')
 from Sudoku.CNN import CNNSolver
 from io import StringIO
+from huggingface_hub import hf_hub_download
 
 def norm(a):
     return (a/9)-.5
@@ -122,6 +123,49 @@ def complete_sudoku_with_dynamic_filling(model, game, base_threshold=0.9, max_it
     return original_game
 
 
+def complete_sudoku_with_dynamic_filling_non_norm(model, game, base_threshold=0.9, max_iterations=100):
+    game = game.replace('\n', '').replace(' ', '')
+    original_game = np.array([int(j) for j in game]).reshape((9, 9))
+    game_normalized = np.array([int(j) for j in game]).reshape((9, 9, 1))
+    game_normalized = game_normalized.reshape((1, 9, 9, 1))
+
+    for _ in range(max_iterations):
+        if not np.any(original_game == 0):  # Break if no empty cells are left
+            break
+
+        prediction = model.predict(game_normalized)
+        prediction = prediction.squeeze()
+
+        max_prob_this_iteration = -1
+        cell_to_update = None
+        updates_made = False
+
+        for i in range(9):
+            for j in range(9):
+                if original_game[i, j] != 0:
+                    continue  # Skip already filled cells
+
+                cell_predictions = prediction[i, j]
+                max_prob = np.max(cell_predictions)
+                digit = np.argmax(cell_predictions) + 1  # Adjusting for zero-indexing
+
+                if max_prob >= base_threshold:
+                    original_game[i, j] = digit  # Update the cell
+                    game_normalized[0, i, j, 0] = digit  # Keep game_normalized in sync
+                    updates_made = True
+                elif max_prob > max_prob_this_iteration:
+                    max_prob_this_iteration = max_prob
+                    cell_to_update = (i, j, digit)
+
+        # If no cells were updated and a cell with the highest probability was found
+        if not updates_made and cell_to_update is not None:
+            i, j, digit = cell_to_update
+            original_game[i, j] = digit
+            game_normalized[0, i, j, 0] = digit
+
+    return original_game
+
+
 
 def complete_sudoku_one_shot(model, game):
     game = game.replace('\n', '')
@@ -157,13 +201,20 @@ def lr_scheduler(epoch, lr):
 
 
 
+
+
 csv_content = CNNSolver.GetSudokuCsvContent()
 
 def one_shot(loadingmodel, savingmodel):
     model = get_complete_model()
     if loadingmodel:
         try:
-            model = keras.models.load_model('..\\..\\..\\..\\Sudoku.CNN\\Resources\\model\\model_oneshot.keras')
+            #model = keras.models.load_model('..\\..\\..\\..\\Sudoku.CNN\\Resources\\model\\model_oneshot.keras')
+            model = keras.models.load_model( hf_hub_download(
+                repo_id="PPCgroup/SudokuSolver", # le nom du repo
+                filename="cnn.h5", # le fichier
+                revision="2385bb511ae4927c3f18d4adeffaddf7fe5ceeda", # la version donc soit commit soit branch
+            ))
         except Exception as e:
             print("no model")
     else:
@@ -179,14 +230,18 @@ def one_shot(loadingmodel, savingmodel):
     instance_string = ''.join(map(str, instance_string))
     instance_string = instance_string.replace('\n', '')
     instance_string = instance_string.replace(' ', '')
-    game = complete_sudoku_with_dynamic_filling(model, instance_string)
+    game = complete_sudoku_with_dynamic_filling_non_norm(model, instance_string)
     return np.array(list(map(int, game.flatten()))).reshape((9, 9))
 
 def multiple(loadingmodel, savingmodel):
     model = get_model()
     if loadingmodel:
         try:
-            model = keras.models.load_model('..\\..\\..\\..\\Sudoku.CNN\\Resources\\model\\model.keras')
+            model = keras.models.load_model( hf_hub_download(
+                repo_id="PPCgroup/SudokuSolver", # le nom du repo
+                filename="model.keras", # le fichier
+                revision="d2e3df7498ee6ffe1b868f8c4424697d3bb14f11", # la version donc soit commit soit branch
+            ))
         except Exception as e:
             print("no model")
     else:
@@ -208,6 +263,6 @@ sudokusolvingoneshot = False
 result = None
 
 if sudokusolvingoneshot:
-    result = one_shot(loadingmodel=False, savingmodel=False)
+    result = one_shot(loadingmodel=True, savingmodel=False)
 else:
     result = multiple(loadingmodel=True, savingmodel=False)

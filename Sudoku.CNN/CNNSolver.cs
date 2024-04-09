@@ -56,6 +56,7 @@ namespace Sudoku.CNN
             InstallPipModule("pandas");
             InstallPipModule("keras");
             InstallPipModule("tensorflow");
+            InstallPipModule("huggingface_hub");
             //InstallPipModule("copy");
             base.InitializePythonComponents();
         }
