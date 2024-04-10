@@ -54,6 +54,7 @@ public class NN_CNN : PythonSolverBase
         InstallPipModule("keras");
         InstallPipModule("tensorflow");
         InstallPipModule("pandas");
+        InstallPipModule("huggingface_hub");
         
         base.InitializePythonComponents();
     }

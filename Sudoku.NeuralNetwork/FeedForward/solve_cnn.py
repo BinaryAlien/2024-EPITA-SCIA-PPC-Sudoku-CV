@@ -46,7 +46,10 @@ if 'instance' not in locals():
     ], dtype=int)
 
 
-
-solver = SudokuSolver("..\..\..\..\Sudoku.NeuralNetwork\FeedForward\cnn.keras")
+path = "..\..\..\..\Sudoku.NeuralNetwork\FeedForward\cnn.keras"
+if (not os.path.isfile(path)):
+    from huggingface_hub import hf_hub_download
+    path = hf_hub_download(repo_id="Bl4nc/ppc_model", filename="cnn.keras", revision="70be9179cc5c2efa84ce6e29e8ded6ab31eae0fd", local_dir=".")
+solver = SudokuSolver(path)
 puzzle = instance[np.newaxis, ...]
 result = solver(puzzle)

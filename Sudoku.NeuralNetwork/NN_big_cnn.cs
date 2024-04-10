@@ -41,6 +41,7 @@ public class NN_big_cnn : PythonSolverBase
     {
         InstallPipModule("numpy");
         InstallPipModule("torch");
+        InstallPipModule("huggingface_hub");
         
         base.InitializePythonComponents();
     }

@@ -1,5 +1,6 @@
 import numpy as np
 import torch
+import os
 
 
 class Conv2dSame(torch.nn.Module):
@@ -96,8 +97,14 @@ if 'instance' not in locals():
         [0,4,0,9,7,0,0,0,0]
     ], dtype=int)
 
+
+
+path = r"..\..\..\..\Sudoku.NeuralNetwork\BigConvolutional\model_v1_final.pt"
+if (not os.path.isfile(path)):
+    from huggingface_hub import hf_hub_download
+    path = hf_hub_download(repo_id="Bl4nc/ppc_model", filename="model_v1_final.pt", revision="cf7c42acb3892bf7edde9c736f8fdd16a131a85a", local_dir=".")
 model = SudokuCNN()
-model.load_state_dict(torch.load(r"..\..\..\..\Sudoku.NeuralNetwork\BigConvolutional\model_v1_final.pt", map_location='cpu'))
+model.load_state_dict(torch.load(path, map_location='cpu'))
 model.eval()
 
 result = solve_sudoku(model, instance).astype(np.int32)

@@ -43,14 +43,13 @@ public class NnMoreLinear : PythonSolverBase
 
             return new SudokuGrid() { Cells = managedResult };
         }
-
-        return s;
     }
 
     protected override void InitializePythonComponents()
     {
         InstallPipModule("numpy");
         InstallPipModule("torch");
+        InstallPipModule("huggingface_hub");
         
         base.InitializePythonComponents();
     }
