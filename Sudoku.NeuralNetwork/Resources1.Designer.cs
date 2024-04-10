@@ -60,6 +60,27 @@ namespace Sudoku.NeuralNetwork {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to import numpy as np
+        ///import torch
+        ///
+        ///
+        ///class Conv2dSame(torch.nn.Module):
+        ///    def __init__(self, in_channels, out_channels, kernel_size, bias=True, padding_layer=torch.nn.ReflectionPad2d):
+        ///        &quot;&quot;&quot;It only support square kernels and stride=1, dilation=1, groups=1.&quot;&quot;&quot;
+        ///        super(Conv2dSame, self).__init__()
+        ///        ka = kernel_size // 2
+        ///        kb = ka - 1 if kernel_size % 2 == 0 else ka
+        ///        self.net = nn.Sequential(
+        ///            padding_layer((ka,kb,ka,kb)),
+        ///            torch.nn.Conv2d(in_channels, out_c [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string solve_big_cnn_py {
+            get {
+                return ResourceManager.GetString("solve_big_cnn.py", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to PK!µçú‰??        ///metadata.json{&quot;keras_version&quot;: &quot;3.2.0&quot;, &quot;date_saved&quot;: &quot;2024-04-09@20:26:32&quot;}PK!&gt;Îžxjjconfig.json{&quot;module&quot;: &quot;keras&quot;, &quot;class_name&quot;: &quot;Sequential&quot;, &quot;config&quot;: {&quot;name&quot;: &quot;sequential&quot;, &quot;trainable&quot;: true, &quot;dtype&quot;: &quot;float32&quot;, &quot;layers&quot;: [{&quot;module&quot;: &quot;keras.layers&quot;, &quot;class_name&quot;: &quot;InputLayer&quot;, &quot;config&quot;: {&quot;batch_shape&quot;: [null, 9, 9, 1], &quot;dtype&quot;: &quot;float32&quot;, &quot;sparse&quot;: false, &quot;name&quot;: &quot;input_layer&quot;}, &quot;registered_name&quot;: null}, {&quot;module&quot;: &quot;keras.layers&quot;, &quot;class_name&quot;: &quot;Conv2D&quot; [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string solve_convolutional_py {

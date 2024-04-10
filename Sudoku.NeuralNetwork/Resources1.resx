@@ -134,4 +134,8 @@
     <value>Convolutional/ConvolutionalModel.keras;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
     <comment/>
   </data>
+  <data name="solve_big_cnn.py" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>BigConvolutional/solve.py;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+    <comment/>
+  </data>
 </root>
