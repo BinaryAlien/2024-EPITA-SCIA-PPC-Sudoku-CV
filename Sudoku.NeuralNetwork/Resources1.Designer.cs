@@ -70,9 +70,9 @@ namespace Sudoku.NeuralNetwork {
         ///        super(Conv2dSame, self).__init__()
         ///        ka = kernel_size // 2
         ///        kb = ka - 1 if kernel_size % 2 == 0 else ka
-        ///        self.net = nn.Sequential(
+        ///        self.net = torch.nn.Sequential(
         ///            padding_layer((ka,kb,ka,kb)),
-        ///            torch.nn.Conv2d(in_channels, out_c [rest of string was truncated]&quot;;.
+        ///            torch.nn.Conv2d( [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string solve_big_cnn_py {
             get {
