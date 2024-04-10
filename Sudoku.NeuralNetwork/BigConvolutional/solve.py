@@ -100,5 +100,4 @@ model = SudokuCNN()
 model.load_state_dict(torch.load(r"..\..\..\..\Sudoku.NeuralNetwork\BigConvolutional\model_v1_final.pt", map_location='cpu'))
 model.eval()
 
-result = solve_sudoku(model, instance)
-print(result)
+result = solve_sudoku(model, instance).astype(np.int32)
