@@ -55,7 +55,7 @@ def inference_sudoku(sample, model):
     while(1):
 
         with torch.no_grad():
-            out = softmax(model(feat).squeeze(0))
+            out = softmax(model(feat).squeeze(0)).numpy()
             #out = out.cpu().
 
             pred = np.argmax(out, axis=0).reshape((9,9))+1
