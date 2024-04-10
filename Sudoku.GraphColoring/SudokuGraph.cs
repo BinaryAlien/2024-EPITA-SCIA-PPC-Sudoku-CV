@@ -140,11 +140,11 @@ public class SudokuGraph
         }
         for (Color color = 0; color < hints.Length; ++color)
         {
-            for (Vertex source = 0; source < hints[color].Count; ++source)
+            foreach (Vertex source in hints[color])
             {
-                for (Vertex destination = 0; destination < hints[color].Count; ++destination)
+                foreach (Vertex destination in hints[color])
                 {
-                    if (source == destination)
+                    if (source >= destination)
                         continue;
                     this._graph.ConnectNeighbors(source, destination);
                 }
