@@ -97,8 +97,7 @@ if 'instance' not in locals():
     ], dtype=int)
 
 model = SudokuCNN()
-model.load_state_dict(torch.load(r"..\..\..\..\Sudoku.NeuralNetwork\BigConvolutional\model_v1_final.pt"))
-model = model.to('cpu')
+model.load_state_dict(torch.load(r"..\..\..\..\Sudoku.NeuralNetwork\BigConvolutional\model_v1_final.pt", map_location='cpu'))
 model.eval()
 
 result = solve_sudoku(model, instance)
