@@ -60,6 +60,87 @@ namespace Sudoku.NeuralNetwork {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to import numpy as np
+        ///import torch
+        ///
+        ///
+        ///class Conv2dSame(torch.nn.Module):
+        ///    def __init__(self, in_channels, out_channels, kernel_size, bias=True, padding_layer=torch.nn.ReflectionPad2d):
+        ///        &quot;&quot;&quot;It only support square kernels and stride=1, dilation=1, groups=1.&quot;&quot;&quot;
+        ///        super(Conv2dSame, self).__init__()
+        ///        ka = kernel_size // 2
+        ///        kb = ka - 1 if kernel_size % 2 == 0 else ka
+        ///        self.net = torch.nn.Sequential(
+        ///            padding_layer((ka,kb,ka,kb)),
+        ///            torch.nn.Conv2d( [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string solve_big_cnn_py {
+            get {
+                return ResourceManager.GetString("solve_big_cnn.py", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to import os
+        ///
+        ///import numpy as np
+        ///from keras import models, utils
+        ///
+        ///
+        ///class SudokuSolver:
+        ///    def __init__(self, model_path):
+        ///        self.model = self.load_model(model_path)
+        ///
+        ///    def load_model(self, model_path):
+        ///        return models.load_model(model_path)
+        ///
+        ///    def __call__(self, puzzles):
+        ///        puzzles = puzzles.copy()
+        ///        for _ in range((puzzles == 0).sum((1, 2)).max()):
+        ///            model_preds = self.model.predict(
+        ///                utils.to_categorical(puzzles, num_classes=10), verbose= [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string solve_cnn_py {
+            get {
+                return ResourceManager.GetString("solve_cnn.py", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to import copy
+        ///import keras
+        ///import numpy as np
+        ///
+        ///
+        ///def norm(a):
+        ///    return (a/9)-.5
+        ///
+        ///def denorm(a):
+        ///    return (a+.5)*9
+        ///
+        ///def inference_sudoku(sample):
+        ///    
+        ///    &apos;&apos;&apos;
+        ///        This function solve the sudoku by filling blank positions one by one.
+        ///    &apos;&apos;&apos;
+        ///    
+        ///    feat = copy.copy(sample)
+        ///    
+        ///    while(1):
+        ///    
+        ///        out = model.predict(feat.reshape((1,9,9,1)))  
+        ///        out = out.squeeze()
+        ///
+        ///        pred = np.argmax(out, axis=1).reshape((9,9))+1 
+        ///        prob = np.around(np.max(out, axis=1) [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string solve_convolutional_py {
+            get {
+                return ResourceManager.GetString("solve_convolutional.py", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to import os
         ///
         ///import numpy as np
