@@ -50,11 +50,11 @@ namespace Sudoku.CNN
             }
         }
         
-        public static string GetSudokuCsvContent()
-        {
+        //public static string GetSudokuCsvContent()
+        //{
             // Assuming you have a resource named "datas" that contains your CSV data
-            return Resources.sudoku;
-        }
+        //    return Resources.sudoku;
+        //}
 
 
         protected override void InitializePythonComponents()

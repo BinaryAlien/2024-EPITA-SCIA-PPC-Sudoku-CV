@@ -63,10 +63,11 @@ namespace Sudoku.CNN {
         ///   Looks up a localized string similar to import numpy as np
         ///import pandas as pd
         ///from sklearn.model_selection import train_test_split
+        ///from keras.utils import to_categorical
         ///
-        ///def get_data(file):
+        ///def get_data_one_shot_fill(file):
         ///
-        ///    data = pd.read_csv(file).sample(n=100000)
+        ///    data = pd.read_csv(file)#.sample(n=10000)
         ///    #print(data.head)
         ///
         ///    feat_raw = data[&apos;quizzes&apos;]
@@ -82,11 +83,7 @@ namespace Sudoku.CNN {
         ///
         ///    feat = np.array(feat)
         ///    feat = feat/9
-        ///    feat -= .5
-        ///
-        ///    for i in label_raw:
-        ///
-        ///        x = np. [rest of string was truncated]&quot;;.
+        ///    fe [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string data_processes {
             get {
@@ -124,6 +121,7 @@ namespace Sudoku.CNN {
         /// <summary>
         ///   Looks up a localized string similar to from keras import Input, Model, Sequential
         ///from keras.layers import Add, Conv2D, MaxPooling2D, Concatenate, Activation, Dropout, Flatten, Dense, Reshape, BatchNormalization
+        ///from keras.regularizers import l2
         ///
         ///
         ///def get_model():
@@ -133,25 +131,11 @@ namespace Sudoku.CNN {
         ///    model.add(Conv2D(64, kernel_size=(3,3), activation=&apos;relu&apos;, padding=&apos;same&apos;, input_shape=(9,9,1)))
         ///    model.add(BatchNormalization())
         ///    model.add(Conv2D(64, kernel_size=(3,3), activation=&apos;relu&apos;, padding=&apos;same&apos;))
-        ///    model.add(BatchNormalization())
-        ///    model.add(C [rest of string was truncated]&quot;;.
+        ///    model.add(Bat [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string model {
             get {
                 return ResourceManager.GetString("model", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to quizzes,solutions
-        ///004300209005009001070060043006002087190007400050083000600000105003508690042910300,864371259325849761971265843436192587198657432257483916689734125713528694542916378
-        ///040100050107003960520008000000000017000906800803050620090060543600080700250097100,346179258187523964529648371965832417472916835813754629798261543631485792254397186
-        ///600120384008459072000006005000264030070080006940003000310000050089700000502000190,695127384138459672724836915851264739273981546946573821317692458489715263562348197
-        ///49 [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string sudoku {
-            get {
-                return ResourceManager.GetString("sudoku", resourceCulture);
             }
         }
         
@@ -163,6 +147,7 @@ namespace Sudoku.CNN {
         ///clr.AddReference(&apos;Sudoku.CNN&apos;)
         ///from Sudoku.CNN import CNNSolver
         ///from io import StringIO
+        ///from huggingface_hub import hf_hub_download
         ///
         ///def norm(a):
         ///    return (a/9)-.5
@@ -173,7 +158,7 @@ namespace Sudoku.CNN {
         ///    return (a+.5)*9
         ///
         ///
-        ///def inference_sudoku(sample):
+        ///def inference_sudoku(model, sample):
         ///
         ///    &apos;&apos;&apos;
         ///        This function solve the sudoku by filling blank positions one by one.
@@ -183,10 +168,7 @@ namespace Sudoku.CNN {
         ///
         ///    while(1):
         ///
-        ///        out = model.predict(feat.reshape((1,9,9,1)))
-        ///        out = out.squeeze()
-        ///
-        ///        pre [rest of string was truncated]&quot;;.
+        ///        out = model.predict(feat.reshape((1, [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string Sudoku_py {
             get {
