@@ -203,7 +203,6 @@ def lr_scheduler(epoch, lr):
 
 
 
-csv_content = CNNSolver.GetSudokuCsvContent()
 
 def one_shot(loadingmodel, savingmodel):
     model = get_complete_model()
@@ -218,6 +217,7 @@ def one_shot(loadingmodel, savingmodel):
         except Exception as e:
             print("no model")
     else:
+        csv_content = CNNSolver.GetSudokuCsvContent()
         x_train, x_test, y_train, y_test = get_data_one_shot_fill(StringIO(csv_content))
         adam = keras.optimizers.Adam(learning_rate=0.001)
         model.compile(loss='categorical_crossentropy', optimizer=adam, metrics=['accuracy'])
@@ -245,6 +245,7 @@ def multiple(loadingmodel, savingmodel):
         except Exception as e:
             print("no model")
     else:
+        csv_content = CNNSolver.GetSudokuCsvContent()
         x_train, x_test, y_train, y_test = get_data(StringIO(csv_content))
         adam = keras.optimizers.Adam(learning_rate=0.001)
         model.compile(loss='sparse_categorical_crossentropy', optimizer=adam)
