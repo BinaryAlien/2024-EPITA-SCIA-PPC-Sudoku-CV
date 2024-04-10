@@ -77,7 +77,7 @@ def inference_sudoku(sample, model):
     return np.around(feat_denormed.squeeze(0).squeeze(0).numpy())
 
 def solve_sudoku(model, game):
-    game = torch.tensor([int(j) for j in game]).reshape((1,1,9,9))
+    game = torch.tensor([int(j) for j in game.flatten()]).reshape((1,1,9,9))
     game = norm(game)
     game = inference_sudoku(game, model)
     return game
