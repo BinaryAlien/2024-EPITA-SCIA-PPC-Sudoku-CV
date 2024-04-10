@@ -1,51 +1,72 @@
 using System;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using BenchmarkDotNet.Configs;
 using BenchmarkDotNet.Running;
+using Microsoft.Extensions.Configuration;
 //using Humanizer;
 using Sudoku.Shared;
 
 namespace Sudoku.Benchmark
 {
-    class Program
+	class Program
     {
 
 #if DEBUG
-        private static bool IsDebug = true;
+		public static bool IsDebug = true;
 #else
-        private static bool IsDebug = false;
+        public static bool IsDebug = false;
 #endif
 
+	    static IConfiguration Configuration;
 
-
-        static void Main(string[] args)
+		static void Main(string[] args)
         {
 
             Console.WriteLine("Benchmarking GrilleSudoku Solvers");
 
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+
+            // Configuration Builder
+            var builder = new ConfigurationBuilder()
+	            .SetBasePath(Directory.GetCurrentDirectory())
+	            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+
+            Configuration = builder.Build();
+
+            PythonConfiguration pythonConfig = null;
+
+			if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             {
-                Console.WriteLine("Customizing MacOs Python Install");
-
-                // Installation Python standard, version différente
-                //MacInstaller.PythonDirectoryName = "3.10";
-                //MacInstaller.LibFileName = "libpython3.10.dylib";
-
-
-                // Environnement dédié Anaconda
-                //MacInstaller.InstallPath = "/Users/francois.soulier/miniconda/envs";
-                //MacInstaller.PythonDirectoryName = "/Users/francois.soulier/miniconda/envs/SCIA/bin";
-                //MacInstaller.LibFileName = "/Users/francois.soulier/miniconda/envs/SCIA/lib/libpython3.10.dylib";
-
-                //MacInstaller.InstallPath = "/Users/jesse/opt/anaconda3/envs";
-                //MacInstaller.PythonDirectoryName = "Sudoku";
-                //MacInstaller.LibFileName = "libpython3.7m.dylib";
-
+				pythonConfig = Configuration.GetSection("PythonConfig:OSX").Get<PythonConfiguration>();
+	            
             }
+			else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux) || RuntimeInformation.IsOSPlatform(OSPlatform.FreeBSD))
+			{
+				pythonConfig = Configuration.GetSection("PythonConfig:Linux").Get<PythonConfiguration>();
+                //LinuxInstaller.InstallPath = "/root/.pyenv/versions/3.10.5";
+                //LinuxInstaller.PythonDirectoryName = "/root/.pyenv/versions/3.10.5/bin";
+                //LinuxInstaller.LibFileName = "/root/.pyenv/versions/3.10.5/lib/libpython3.10.so";
+			}
 
+			if (pythonConfig != null)
+			{
+				Console.WriteLine("Customizing MacOs/Linux Python Install from appsettings.json file");
+				if (!string.IsNullOrEmpty(pythonConfig.InstallPath))
+				{
+					MacInstaller.InstallPath = pythonConfig.InstallPath;
+				}
+				if (!string.IsNullOrEmpty(pythonConfig.PythonDirectoryName))
+				{
+					MacInstaller.PythonDirectoryName = pythonConfig.PythonDirectoryName;
+				}
+				if (!string.IsNullOrEmpty(pythonConfig.LibFileName))
+				{
+					MacInstaller.LibFileName = pythonConfig.LibFileName;
+				}
+            }
 
             while (true)
             {
@@ -101,7 +122,7 @@ namespace Sudoku.Benchmark
 
         private static void Benchmark()
         {
-            Console.WriteLine("Select Benchmark Type: \n1-Quick Benchmark (Easy, 2 Sudokus, 20s max per sudoku, Single invocation), \n2-Quick Benchmark (Medium, 10 Sudokus, 20s max per sudoku, Single invocation), \n3-Quick Benchmark (Hard, 10 Sudokus, 20s max per sudoku, Single invocation), \n4-Complete Benchmark (All difficulties, 5 mn max per sudoku, several invocations), \n5-Return");
+            Console.WriteLine("Select Benchmark Type: \n1-Quick Benchmark (Easy, 2 Sudokus, 10s max per sudoku, Single invocation), \n2-Quick Benchmark (Medium, 10 Sudokus, 20s max per sudoku, Single invocation), \n3-Quick Benchmark (Hard, 10 Sudokus, 30s max per sudoku, Single invocation), \n4-Complete Benchmark (All difficulties, 1 mn max per sudoku, several invocations), \n5-Return");
             var strMode = Console.ReadLine();
             int.TryParse(strMode, out var intMode);
             //Console.SetBufferSize(130, short.MaxValue - 100);
@@ -109,9 +130,17 @@ namespace Sudoku.Benchmark
             {
                 case 1:
                     var tempEasy = new QuickBenchmarkSolversEasy();
-                    //BenchmarkRunner.Run<QuickBenchmarkSolvers>(new DebugInProcessConfig());
-                    BenchmarkRunner.Run<QuickBenchmarkSolversEasy>();
-                    break;
+
+					//               if (IsDebug)
+					//               {
+					//	BenchmarkRunner.Run<QuickBenchmarkSolversEasy>(new DebugInProcessConfig());
+					//}
+					//               else
+					//               {
+					//	BenchmarkRunner.Run<QuickBenchmarkSolversEasy>();
+					//}
+					BenchmarkRunner.Run<QuickBenchmarkSolversEasy>();
+					break;
                 case 2:
                     //Init solvers
                     var tempMedium = new QuickBenchmarkSolversMedium();

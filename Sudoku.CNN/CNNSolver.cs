@@ -30,7 +30,7 @@ namespace Sudoku.CNN
 
                 // Convertissez le tableau .NET en tableau NumPy
                 var pyCells = AsNumpyArray(s.Cells, scope);
-
+           
                 // create a Python variable "instance"
                 scope.Set("instance", pyCells);
                 scope.Set("sudokusolvingoneshot", _method);
