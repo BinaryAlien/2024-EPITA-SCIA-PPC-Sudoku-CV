@@ -260,7 +260,7 @@ def multiple(loadingmodel, savingmodel):
     game = solve_sudoku(model, instance_string)
     return np.array(list(map(int, game.flatten()))).reshape((9, 9))
 
-sudokusolvingoneshot = False
+
 result = None
 
 if sudokusolvingoneshot:

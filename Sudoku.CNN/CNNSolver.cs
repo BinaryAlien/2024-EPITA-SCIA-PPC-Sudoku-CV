@@ -10,8 +10,16 @@ using Python.Runtime;
 
 namespace Sudoku.CNN
 {
-    public class CNNSolver : PythonSolverBase
+    public abstract class CNNSolver : PythonSolverBase
     {
+        public CNNSolver()
+        {
+            _method = GetMethod();
+        }
+        private readonly bool _method;
+
+        protected abstract bool GetMethod();
+
         public override Shared.SudokuGrid Solve(Shared.SudokuGrid s)
         {
             using (PyModule scope = Py.CreateScope())
@@ -25,6 +33,7 @@ namespace Sudoku.CNN
 
                 // create a Python variable "instance"
                 scope.Set("instance", pyCells);
+                scope.Set("sudokusolvingoneshot", _method);
 
                 // run the Python script
 				
