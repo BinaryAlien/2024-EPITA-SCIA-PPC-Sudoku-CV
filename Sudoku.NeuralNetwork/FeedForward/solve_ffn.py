@@ -47,6 +47,6 @@ if 'instance' not in locals():
 
 
 
-solver = SudokuSolver("..\..\..\..\Sudoku.NeuralNetwork\FeedForwardNeuralNetwork\FNN_Model.keras")
+solver = SudokuSolver("..\..\..\..\Sudoku.NeuralNetwork\FeedForward\FNN_Model.keras")
 puzzle = instance[np.newaxis, ...]
 result = solver(puzzle)
