@@ -8,6 +8,7 @@ using Color = int;
 public class SudokuGraph
 {
     public static readonly Color Blank = 0;
+    private static readonly string[] DumpColors = ["white", "red", "orange", "yellow", "green", "blue", "darkslateblue", "darkorchid", "deeppink", "turquoise"];
 
     public int GridSize { get; }
     public int GridLength { get; }
@@ -36,7 +37,7 @@ public class SudokuGraph
         set => this._colors[vertex] = value;
     }
 
-    public Vertex? First(Vertex target)
+    public Vertex? First(Color target)
     {
         for (Vertex vertex = 0; vertex < this._graph.VertexCount; ++vertex)
             if (this[vertex] == target)
@@ -73,7 +74,7 @@ public class SudokuGraph
         using (var writer = new StreamWriter(path))
         {
             writer.WriteLine("graph {");
-            this.DumpPositions(writer);
+            this.DumpNodes(writer);
             this.DumpEdges(writer);
             writer.WriteLine("}");
         }
@@ -139,11 +140,11 @@ public class SudokuGraph
         }
         for (Color color = 0; color < hints.Length; ++color)
         {
-            for (Vertex source = 0; source < hints[color].Count; ++source)
+            foreach (Vertex source in hints[color])
             {
-                for (Vertex destination = 0; destination < hints[color].Count; ++destination)
+                foreach (Vertex destination in hints[color])
                 {
-                    if (source == destination)
+                    if (source >= destination)
                         continue;
                     this._graph.ConnectNeighbors(source, destination);
                 }
@@ -151,11 +152,11 @@ public class SudokuGraph
         }
     }
 
-    private void DumpPositions(TextWriter writer)
+    private void DumpNodes(TextWriter writer)
     {
         for (int row = 0; row < this.GridLength; ++row)
             for (int column = 0; column < this.GridLength; ++column)
-                this.DumpPosition(writer, row, column);
+                this.DumpNode(writer, row, column);
     }
 
     private void DumpEdges(TextWriter writer)
@@ -164,10 +165,13 @@ public class SudokuGraph
             writer.WriteLine($"\t{source} -- {destination}");
     }
 
-    private void DumpPosition(TextWriter writer, int row, int column)
+    private void DumpNode(TextWriter writer, int row, int column)
     {
         Vertex vertex = this.ToVertex(row, column);
-        writer.WriteLine($"\t{vertex} [pos=\"{column},{this.GridLength - row - 1}!\"]");
+        Color color = this[vertex];
+        var label = (color == SudokuGraph.Blank) ? "" : color.ToString();
+        var fillColor = SudokuGraph.DumpColors[color];
+        writer.WriteLine($"\t{vertex} [style=filled fillcolor=\"{fillColor}\" label=\"{label}\" pos=\"{column},{this.GridLength - row - 1}!\"]");
     }
 
     private Vertex ToVertex(int row, int column)

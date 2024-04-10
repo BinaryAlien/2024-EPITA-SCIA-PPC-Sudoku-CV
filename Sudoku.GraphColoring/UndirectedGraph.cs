@@ -20,7 +20,8 @@ public class UndirectedGraph
     {
         for (Vertex source = 0; source < this.VertexCount; ++source)
             foreach (Vertex destination in this.Neighbors(source))
-                yield return (Math.Min(source, destination), Math.Max(source, destination));
+                if (source < destination)
+                    yield return (source, destination);
     }
 
     public int Degree(Vertex source)
