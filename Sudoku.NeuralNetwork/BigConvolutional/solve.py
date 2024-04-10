@@ -101,3 +101,4 @@ model.load_state_dict(torch.load(r"..\..\..\..\Sudoku.NeuralNetwork\BigConvoluti
 model.eval()
 
 result = solve_sudoku(model, instance)
+print(result)
