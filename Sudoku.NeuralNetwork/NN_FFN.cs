@@ -37,8 +37,6 @@ public class NN_FFN : PythonSolverBase
 
             return new SudokuGrid() { Cells = managedResult };
         }
-        
-        return s;
     }
 
     protected override void InitializePythonComponents()
@@ -48,6 +46,7 @@ public class NN_FFN : PythonSolverBase
         InstallPipModule("keras");
         InstallPipModule("tensorflow");
         InstallPipModule("pandas");
+        InstallPipModule("huggingface_hub");
         
         base.InitializePythonComponents();
     }

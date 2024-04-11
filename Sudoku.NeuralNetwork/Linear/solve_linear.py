@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 import numpy as np
+import os
 
 
 def create_constraint_mask():
@@ -60,8 +61,10 @@ class SudokuSolver(nn.Module):
 
         for a in range(min_empty):
             # score empty numbers
-            #print(x.view(bts, 1, 1, n * n, n).size(), x.unsqueeze(1).unsqueeze(1).size())
+            print(x.shape)
+            # print(x.view(bts, 1, 1, n * n, n).size(), x.unsqueeze(1).unsqueeze(1).size())
             constraints = (x.unsqueeze(1).unsqueeze(1) * c).sum(dim=3)
+            print(constraints.shape)
             # empty cells
             empty_mask = (x.sum(dim=2) == 0)
 
@@ -111,8 +114,11 @@ def ff(s):
     return np.argmax(s , axis = 2) + 1
 
 path = r"..\..\..\..\Sudoku.NeuralNetwork\Linear\model_save\LinearModel.pth"
+if (not os.path.isfile(path)):
+    from huggingface_hub import hf_hub_download
+    path = hf_hub_download(repo_id="Bl4nc/ppc_model", filename="LinearModel.pth", revision="70be9179cc5c2efa84ce6e29e8ded6ab31eae0fd", local_dir=".")
 model = SudokuSolver()
 model.load_state_dict(torch.load(path, map_location=torch.device('cpu')))
 result = ff(model(one_hot_encode(instance.flatten()).unsqueeze(0)).detach().numpy()).reshape(9,9)
 result = result.astype(np.int32)
-#print(result)
+# print(result)

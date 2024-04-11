@@ -1,3 +1,5 @@
+import os
+
 import torch
 import torch.nn as nn
 import numpy as np
@@ -117,6 +119,9 @@ def ff(s):
     return np.argmax(s , axis = 2) + 1
 
 path = r"..\..\..\..\Sudoku.NeuralNetwork\Linear\model_save\DropoutModel.pth"
+if (not os.path.isfile(path)):
+    from huggingface_hub import hf_hub_download
+    path = hf_hub_download(repo_id="Bl4nc/ppc_model", filename="DropoutModel.pth", revision="70be9179cc5c2efa84ce6e29e8ded6ab31eae0fd", local_dir=".")
 model = SudokuSolver(create_constraint_mask())
 model.load_state_dict(torch.load(path, map_location=torch.device('cpu')))
 result = ff(model(one_hot_encode(instance.flatten()).unsqueeze(0)).detach().numpy()).reshape(9,9)

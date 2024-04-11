@@ -1,6 +1,8 @@
 import copy
 import keras
 import numpy as np
+import os
+
 
 
 def norm(a):
@@ -57,6 +59,9 @@ if 'instance' not in locals():
 
 
 path = r"..\..\..\..\Sudoku.NeuralNetwork\Convolutional\ConvolutionalModel.keras"
+if (not os.path.isfile(path)):
+    from huggingface_hub import hf_hub_download
+    path = hf_hub_download(repo_id="Bl4nc/ppc_model", filename="ConvolutionalModel.keras", revision="70be9179cc5c2efa84ce6e29e8ded6ab31eae0fd", local_dir=".")
 model = keras.saving.load_model(path)
 instance = norm(instance)
 result = inference_sudoku(instance).astype(np.int32)

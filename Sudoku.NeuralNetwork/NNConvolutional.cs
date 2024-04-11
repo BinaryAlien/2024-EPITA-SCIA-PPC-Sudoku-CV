@@ -38,8 +38,6 @@ public class NNConvolutional : PythonSolverBase
 
             return new SudokuGrid() { Cells = managedResult };
         }
-        
-        return s;
     }
 
     protected override void InitializePythonComponents()
@@ -47,6 +45,7 @@ public class NNConvolutional : PythonSolverBase
         InstallPipModule("numpy");
         InstallPipModule("keras");
         InstallPipModule("tensorflow");
+        InstallPipModule("huggingface_hub");
         
         base.InitializePythonComponents();
     }
